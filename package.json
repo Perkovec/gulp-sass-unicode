@@ -1,0 +1,39 @@
+{
+  "name": "gulp-sass-unicode",
+  "version": "1.0.0",
+  "description": "Fix unicode usage in 'content'",
+  "license": "MIT",
+  "main": "index.js",
+  "author": {
+    "name": "Perkovec",
+    "url": "https://github.com/Perkovec"
+  },
+  "repository": "Perkovec/gulp-sass-unicode",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "bugs": {
+    "url": "https://github.com/Perkovec/gulp-sass-unicode/issues"
+  },
+  "homepage": "https://github.com/Perkovec/gulp-sass-unicode#readme",
+  "dependencies": {
+    "through2": "^2.0.1",
+    "gulp-util": "^3.0.7"
+  },
+  "devDependencies": {
+    "assert": "^1.3.0",
+    "mocha": "^2.4.5"
+  },
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "sass",
+    "scss",
+    "unicode"
+  ],
+  "files": [
+    "index.js",
+    "package.json",
+    "README.md"
+  ]
+}
