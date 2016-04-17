@@ -28,7 +28,7 @@ module.exports.init = function (){
 			this.emit('error', new gutil.PluginError('gulp-sass-unicode', err, {fileName: file.path}));
 		}
 
-		next();
+		next( null, file );
 	} );
 }
 
