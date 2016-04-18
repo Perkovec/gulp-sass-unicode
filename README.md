@@ -1,5 +1,5 @@
-# gulp-replace
-> Return 'content' unicode after sass compile
+# gulp-sass-unicode
+> Replace 'content' unicode after sass compile
 
 ## Usage
 
