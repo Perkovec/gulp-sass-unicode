@@ -1,77 +1,43 @@
 'use strict';
 
-var gutil = require( "gulp-util" );
-var sass_unicode = require( "../" );
-var assert = require( "assert" );
+var gutil = require("gulp-util");
+var sass_unicode = require("../");
+var sass = require("gulp-sass");
+var assert = require("assert");
+var fs = require("fs");
 
-describe( "gulp-sass-unicode", function (){
+describe("gulp-sass-unicode", function() {
 
-	describe( "init-resolve", function (){
+    it("Compile FontAwesome", function(done) {
 
-		it( "Init", function ( done ) {
-			var stream = sass_unicode.init();
+        var sassStream = sass();
 
-			stream.on('data', function (data) {
-				assert.equal(data.contents.toString(), '#test{content:"{:f000}"}');
-			});
+        sassStream.on('data', function(sassData) {
 
-			stream.on('end', done);
+            var unicodeStream = sass_unicode();
 
-			stream.write(new gutil.File({
-				contents: new Buffer('#test{content:"\\f000"}')
-			}));
+            unicodeStream.on('data', function(unicodeData) {
+                assert.equal(unicodeData.contents.toString(), fs.readFileSync('test/font-awesome.css').toString());
 
-			stream.end();
-		} );
+            });
 
-		it( "Init without content", function ( done ) {
-			var stream = sass_unicode.init();
+            unicodeStream.on('end', done);
 
-			stream.on('data', function (data) {
-				assert.equal(data.contents.toString(), '');
-			});
+            unicodeStream.write(new gutil.File({
+                contents: new Buffer(sassData.contents)
+            }));
 
-			stream.on('end', done);
+            unicodeStream.end();
 
-			stream.write(new gutil.File({
-				contents: new Buffer('')
-			}));
+        });
 
-			stream.end();
-		} );
+        sassStream.write(new gutil.File({
+            path: "test/scss/font-awesome.scss",
+            contents: new Buffer(fs.readFileSync("test/scss/font-awesome.scss"))
+        }));
 
-		it( "Resolve", function ( done ) {
-			var stream = sass_unicode.resolve();
+        sassStream.end();
 
-			stream.on('data', function (data) {
-				assert.equal(data.contents.toString(), '#test{content:"\\f000"}');
-			});
+    });
 
-			stream.on('end', done);
-
-			stream.write(new gutil.File({
-				contents: new Buffer('#test{content:"{:f000}"}')
-			}));
-
-			stream.end();
-		} );
-
-		it( "Resolve without content", function ( done ) {
-			var stream = sass_unicode.resolve();
-
-			stream.on('data', function (data) {
-				assert.equal(data.contents.toString(), '');
-			});
-
-			stream.on('end', done);
-
-			stream.write(new gutil.File({
-				contents: new Buffer('')
-			}));
-
-			stream.end();
-		} );
-
-	} );
-
-} );
+});
