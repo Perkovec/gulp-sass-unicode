@@ -2,7 +2,7 @@
 
 var through = require('through2');
 var gutil = require( "gulp-util" );
-var rg = /content: *"."/g;
+var rg = rg = /content: *"(.+)"/g;
 
 module.exports = function (){
 	return through.obj( function ( file, _, next ) {
@@ -18,9 +18,13 @@ module.exports = function (){
 		}
 
 		try {
-			file.contents = new Buffer( file.contents.toString().replace( rg, function(input){
-				return "content: \"\\" + input.codePointAt(input.length-2).toString(16) + "\"" ;
+			file.contents = Buffer.from( file.contents.toString().replace( rg, function(input, p1){
+				var content = '';
+				for (var i = 0; i < p1.length; i++) {
+					content += "\\" + p1.codePointAt(i).toString(16);
+				}
 
+				return "content: \"" + content + "\"";
 			} ) );
 			this.push(file);
 			next();
