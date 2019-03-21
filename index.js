@@ -1,7 +1,7 @@
 'use strict';
 
 var through = require('through2');
-var gutil = require( "gulp-util" );
+var PluginError = require('plugin-error');
 var rg = rg = /content: *"(.+)"/g;
 
 module.exports = function (){
@@ -13,7 +13,7 @@ module.exports = function (){
 		}
 
 		if (file.isStream()) {
-			next(new gutil.PluginError('gulp-sass-unicode', 'Streaming not supported'));
+			next(new PluginError('gulp-sass-unicode', 'Streaming not supported'));
 			return;
 		}
 
@@ -29,7 +29,7 @@ module.exports = function (){
 			this.push(file);
 			next();
 		} catch (err) {
-			this.emit('error', new gutil.PluginError('gulp-sass-unicode', err, {fileName: file.path}));
+			this.emit('error', new PluginError('gulp-sass-unicode', err, {fileName: file.path}));
 		}
 	} );
 }
