@@ -1,6 +1,6 @@
 {
   "name": "gulp-sass-unicode",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Fix unicode usage in 'content'",
   "license": "MIT",
   "main": "index.js",
