@@ -2,7 +2,7 @@
 
 var through = require('through2');
 var PluginError = require('plugin-error');
-var rg = rg = /content: *"(.+)"/g;
+var rg = rg = /content:( *)"([^"]*)"/g;
 
 module.exports = function (){
 	return through.obj( function ( file, _, next ) {
@@ -18,13 +18,13 @@ module.exports = function (){
 		}
 
 		try {
-			file.contents = Buffer.from( file.contents.toString().replace( rg, function(input, p1){
+			file.contents = Buffer.from( file.contents.toString().replace( rg, function(input, whitespace, p2){
 				var content = '';
-				for (var i = 0; i < p1.length; i++) {
-					content += "\\" + p1.codePointAt(i).toString(16);
+				for (var i = 0; i < p2.length; i++) {
+					content += "\\" + p2.codePointAt(i).toString(16);
 				}
 
-				return "content: \"" + content + "\"";
+				return "content:" + whitespace + "\"" + content + "\"";
 			} ) );
 			this.push(file);
 			next();
