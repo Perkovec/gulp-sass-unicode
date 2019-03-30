@@ -1,0 +1,18 @@
+@charset "UTF-8";
+.var::before {
+  content: "\f206"; }
+
+.direct::before {
+  content: "\f206"; }
+
+.var-multichar::before {
+  content: "\f206\f1e5\f1fd"; }
+
+.direct-multichar::before {
+  content: "\f206\f1e5\f1fd"; }
+
+.var-string::before {
+  content: "myString"; }
+
+.direct-string::before {
+  content: "myString"; }

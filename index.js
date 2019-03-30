@@ -21,7 +21,12 @@ module.exports = function (){
 			file.contents = Buffer.from( file.contents.toString().replace( rg, function(input, whitespace, p2){
 				var content = '';
 				for (var i = 0; i < p2.length; i++) {
-					content += "\\" + p2.codePointAt(i).toString(16);
+					var codePoint = p2.codePointAt(i);
+					if (codePoint > 127) {
+						content += "\\" + p2.codePointAt(i).toString(16);
+					} else {
+						content += p2.charAt(i);
+					}
 				}
 
 				return "content:" + whitespace + "\"" + content + "\"";
