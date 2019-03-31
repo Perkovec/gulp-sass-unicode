@@ -70,4 +70,35 @@ describe('gulp-sass-unicode', function() {
 
     });
 
+    it('Compile Mixed Unicode and Escape Sequences.', function(done) {
+
+        var sassStream = sass();
+
+        sassStream.on('data', function(sassData) {
+
+            var unicodeStream = sass_unicode();
+
+            unicodeStream.on('data', function(unicodeData) {
+                assert.equal(unicodeData.contents.toString(), fs.readFileSync('test/test-mixed-unicode.css').toString());
+            });
+
+            unicodeStream.on('end', done);
+
+            unicodeStream.write(new Vinyl({
+                contents: new Buffer.from(sassData.contents)
+            }));
+
+            unicodeStream.end();
+
+        });
+
+        sassStream.write(new Vinyl({
+            path: 'test/scss/test-mixed-unicode.scss',
+            contents: new Buffer.from(fs.readFileSync('test/scss/test-mixed-unicode.scss'))
+        }));
+
+        sassStream.end();
+
+    });
+
 });

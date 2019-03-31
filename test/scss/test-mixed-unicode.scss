@@ -1,0 +1,40 @@
+$fa-var-bicycle: "\f206";
+$fa-var-binoculars: "\f1e5";
+$fa-var-birthday-cake: "\f1fd";
+$my-string: "myString";
+
+.var {
+    &::before {
+        content: $fa-var-bicycle;
+    }
+}
+
+.direct {
+    &::before {
+        content: "\f206";
+    }
+}
+
+.var-multichar {
+    &::before {
+        content: $fa-var-bicycle + $fa-var-binoculars + $fa-var-birthday-cake;
+    }
+}
+
+.direct-multichar {
+    &::before {
+        content: "\f206\f1e5\f1fd";
+    }
+}
+
+.var-string {
+    &::before {
+        content: $my-string;
+    }
+}
+
+.direct-string {
+    &::before {
+        content: "myString";
+    }
+}
