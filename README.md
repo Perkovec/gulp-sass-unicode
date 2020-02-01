@@ -1,4 +1,7 @@
 # gulp-sass-unicode
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Perkovec/gulp-sass-unicode.svg)](https://greenkeeper.io/)
+
 > Replace 'content' unicode after sass compile
 
 ## Usage
